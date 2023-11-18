@@ -1,0 +1,33 @@
+version: "3.7"
+services:
+  web1:
+    build: ./quote_gen
+    container_name: gen
+    ports:
+      - "5000:5000"
+    networks:
+      - quote-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  web2:
+    build: ./quote_disp
+    container_name: disp
+    ports:
+      - "5001:5001"
+    networks:
+      - quote-network
+    depends_on:
+      - web1
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5001/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+networks:
+  quote-network:
+    external: true
