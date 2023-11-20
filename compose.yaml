@@ -1,33 +1,26 @@
 version: "3.7"
+
 services:
   web1:
-    build: ./quote_gen
-    container_name: gen
+    build:
+      context: ./quote_gen
     ports:
-      - "5000:5000"
-    networks:
-      - quote-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
+      - "5000-5002:5000"
+    volumes:
+      - ./quote_gen:/app
+    deploy:
+      replicas: 2
+  
 
   web2:
-    build: ./quote_disp
-    container_name: disp
+    build:
+      context: ./quote_disp
     ports:
-      - "5001:5001"
-    networks:
-      - quote-network
+      - "5003-5006:5001"
     depends_on:
       - web1
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5001/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-
-networks:
-  quote-network:
-    external: true
+    volumes:
+      - ./quote_disp:/app
+    deploy:
+      replicas: 2
+ 
