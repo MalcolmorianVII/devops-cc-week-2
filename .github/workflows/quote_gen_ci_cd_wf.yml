@@ -29,7 +29,7 @@ jobs:
           export PYTHONPATH=/workspaces/devops-cc-week-2
       - name: Run tests
         run: |
-          pytest --junitxml=pytest_quote_gen_coverage.xml --cov-report=term-missing:skip-covered --cov=app tests/ | tee pytest_quote_gen_coverage.txt
+          pytest tests/*gen* --junitxml=pytest_quote_gen_coverage.xml --cov-report=term-missing:skip-covered --cov=app tests/ | tee pytest_quote_gen_coverage.txt
       - name: Pytest coverage comment
         uses: MishaKav/pytest-coverage-comment@main
         with:
