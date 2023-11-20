@@ -1,7 +1,7 @@
 import random
 import pytest
 from flask import Flask
-from quote_disp.app import app
+from quote_gen.app import app
 
 @pytest.fixture
 def client():

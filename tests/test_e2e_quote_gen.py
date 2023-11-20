@@ -1,7 +1,7 @@
 import requests
 import pytest
 import threading
-from quote_disp.app import app
+from quote_gen.app import app
 
 def start_flask_app():
     app.run(host="0.0.0.0", port=5000, debug=True)
