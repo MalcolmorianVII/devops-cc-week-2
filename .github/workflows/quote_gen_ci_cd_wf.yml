@@ -24,6 +24,9 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install -r ./quote_gen/requirements.txt
+      - name: Set PYTHONPATH
+        run: |
+          export PYTHONPATH=/workspaces/devops-cc-week-2
       - name: Run tests
         run: |
           pytest --junitxml=pytest_quote_gen_coverage.xml --cov-report=term-missing:skip-covered --cov=app tests/ | tee pytest_quote_gen_coverage.txt
